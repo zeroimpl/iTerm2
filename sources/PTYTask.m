@@ -3,6 +3,7 @@
 #import "Coprocess.h"
 #import "DebugLogging.h"
 #import "iTermNotificationController.h"
+#import "iTermPosixTTYReplacements.h"
 #import "iTermProcessCache.h"
 #import "NSWorkspace+iTerm.h"
 #import "PreferencePanel.h"
@@ -33,54 +34,7 @@
 #include <unistd.h>
 #include <util.h>
 
-#define CTRLKEY(c) ((c)-'A'+1)
-
 NSString *kCoprocessStatusChangeNotification = @"kCoprocessStatusChangeNotification";
-
-static void
-setup_tty_param(iTermTTYState *ttyState,
-                int width,
-                int height,
-                BOOL isUTF8) {
-    struct termios *term = &ttyState->term;
-    struct winsize *win = &ttyState->win;
-
-    memset(term, 0, sizeof(struct termios));
-    memset(win, 0, sizeof(struct winsize));
-
-    // UTF-8 input will be added on demand.
-    term->c_iflag = ICRNL | IXON | IXANY | IMAXBEL | BRKINT | (isUTF8 ? IUTF8 : 0);
-    term->c_oflag = OPOST | ONLCR;
-    term->c_cflag = CREAD | CS8 | HUPCL;
-    term->c_lflag = ICANON | ISIG | IEXTEN | ECHO | ECHOE | ECHOK | ECHOKE | ECHOCTL;
-
-    term->c_cc[VEOF] = CTRLKEY('D');
-    term->c_cc[VEOL] = -1;
-    term->c_cc[VEOL2] = -1;
-    term->c_cc[VERASE] = 0x7f;           // DEL
-    term->c_cc[VWERASE] = CTRLKEY('W');
-    term->c_cc[VKILL] = CTRLKEY('U');
-    term->c_cc[VREPRINT] = CTRLKEY('R');
-    term->c_cc[VINTR] = CTRLKEY('C');
-    term->c_cc[VQUIT] = 0x1c;           // Control+backslash
-    term->c_cc[VSUSP] = CTRLKEY('Z');
-    term->c_cc[VDSUSP] = CTRLKEY('Y');
-    term->c_cc[VSTART] = CTRLKEY('Q');
-    term->c_cc[VSTOP] = CTRLKEY('S');
-    term->c_cc[VLNEXT] = CTRLKEY('V');
-    term->c_cc[VDISCARD] = CTRLKEY('O');
-    term->c_cc[VMIN] = 1;
-    term->c_cc[VTIME] = 0;
-    term->c_cc[VSTATUS] = CTRLKEY('T');
-
-    term->c_ispeed = B38400;
-    term->c_ospeed = B38400;
-
-    win->ws_row = height;
-    win->ws_col = width;
-    win->ws_xpixel = 0;
-    win->ws_ypixel = 0;
-}
 
 static void HandleSigChld(int n) {
     // This is safe to do because write(2) is listed in the sigaction(2) man page
@@ -945,7 +899,7 @@ static void HandleSigChld(int n) {
     }
 
     iTermTTYState ttyState;
-    setup_tty_param(&ttyState, width, height, isUTF8);
+    iTermTTYStateInitialize(&ttyState, width, height, isUTF8);
 
     [self setCommand:progpath];
     env = [self environmentBySettingShell:env];
