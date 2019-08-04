@@ -5652,7 +5652,10 @@ scrollToFirstResult:(BOOL)scrollToFirstResult {
 }
 
 - (void)hideSession {
-    [self bury];
+    [[MovePaneController sharedInstance] moveSessionToNewWindow:self atPoint:[self.delegate.realParentWindow.window pointToScreenCoords:NSMakePoint(0, 0)]];
+    [self.delegate.realParentWindow.window orderOut:nil]; // hide window before minimize, to avoid aninmation
+    [self.delegate.realParentWindow.window setIsMiniaturized:YES];
+//    [self bury];
 }
 
 - (NSString *)preferredTmuxClientName {
