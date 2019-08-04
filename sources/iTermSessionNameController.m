@@ -331,7 +331,7 @@ NSString *const iTermSessionNameControllerSystemTitleUniqueIdentifier = @"com.it
 - (NSString *)formattedName:(NSString *)base {
     iTermSessionFormattingDescriptor *descriptor = [self.delegate sessionNameControllerFormattingDescriptor];
     if (descriptor.isTmuxGateway) {
-        return [NSString stringWithFormat:@"[↣ %@ %@]", base, descriptor.tmuxClientName];
+        return [NSString stringWithFormat:@"↣ Gateway: %@", descriptor.tmuxClientName];
     }
     if (descriptor.haveTmuxController) {
         // There won't be a valid job name, and the profile name is always tmux, so just show the
