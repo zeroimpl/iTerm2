@@ -671,9 +671,8 @@ andEditComponentWithIdentifier:(NSString *)identifier
         return;
     }
     NSMutableDictionary *newProfile = [NSMutableDictionary dictionaryWithDictionary:profile];
-    NSString* newName = [NSString stringWithFormat:@"Copy of %@", newProfile[KEY_NAME]];
-
-    newProfile[KEY_NAME] = newName;
+//    NSString* newName = [NSString stringWithFormat:@"Copy of %@", newProfile[KEY_NAME]];
+//    newProfile[KEY_NAME] = newName;
     newProfile[KEY_GUID] = [ProfileModel freshGuid];
     newProfile[KEY_DEFAULT_BOOKMARK] = @"No";
     newProfile[KEY_SHORTCUT] = @"";
