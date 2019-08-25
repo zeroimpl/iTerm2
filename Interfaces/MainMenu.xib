@@ -246,49 +246,6 @@
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem isSeparatorItem="YES" id="1307">
-                                <modifierMask key="keyEquivalentModifierMask" command="YES"/>
-                            </menuItem>
-                            <menuItem title="tmux" id="1448">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="tmux" id="1449">
-                                    <items>
-                                        <menuItem title="Detach" alternate="YES" keyEquivalent="D" identifier="tmux.Detach" id="1459">
-                                            <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
-                                            <connections>
-                                                <action selector="detachTmux:" target="-1" id="1460"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Force Detach" alternate="YES" identifier="tmux.Force Detach" id="BV1-u8-JSz">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="forceDetachTmux:" target="-1" id="d8H-zq-jSZ"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="New Tmux Window" alternate="YES" keyEquivalent="N" identifier="tmux.New Tmux Window" id="1455">
-                                            <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
-                                            <connections>
-                                                <action selector="newTmuxWindow:" target="-1" id="1456"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="New Tmux Tab" alternate="YES" keyEquivalent="T" identifier="tmux.New Tmux Tab" id="1452">
-                                            <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
-                                            <connections>
-                                                <action selector="newTmuxTab:" target="-1" id="1453"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Dashboard" alternate="YES" identifier="tmux.Dashboard" id="1461">
-                                            <string key="keyEquivalent" base64-UTF8="YES">
-DQ
-</string>
-                                            <modifierMask key="keyEquivalentModifierMask" shift="YES" control="YES" command="YES"/>
-                                            <connections>
-                                                <action selector="openDashboard:" target="-1" id="1463"/>
-                                            </connections>
-                                        </menuItem>
-                                    </items>
-                                </menu>
-                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="1439"/>
                             <menuItem title="Page Setup..." keyEquivalent="P" identifier="Page Setup..." id="685">
                                 <connections>
@@ -908,16 +865,6 @@ DQ
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem isSeparatorItem="YES" id="CRC-2n-duo"/>
-                            <menuItem title="Bury Session" keyEquivalent="B" identifier="Bury Session" id="m8k-FC-JBb">
-                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
-                                <connections>
-                                    <action selector="bury:" target="-1" id="jki-EJ-MEs"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Buried Sessions" id="Weo-nd-iLL">
-                                <menu key="submenu" title="Buried Sessions" autoenablesItems="NO" id="PTu-aD-qbz"/>
-                            </menuItem>
                         </items>
                     </menu>
                 </menuItem>
@@ -1255,9 +1202,62 @@ DQ
                                     <action selector="openPasswordManager:" target="201" id="wbL-5o-kEN"/>
                                 </connections>
                             </menuItem>
+                            <menuItem isSeparatorItem="YES" id="du9-lQ-zmH">
+                                <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                            </menuItem>
+                            <menuItem title="tmux" id="1448">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="tmux" id="1449">
+                                    <items>
+                                        <menuItem title="Detach" alternate="YES" keyEquivalent="D" identifier="tmux.Detach" id="1459">
+                                            <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
+                                            <connections>
+                                                <action selector="detachTmux:" target="-1" id="1460"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Force Detach" alternate="YES" identifier="tmux.Force Detach" id="BV1-u8-JSz">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="forceDetachTmux:" target="-1" id="d8H-zq-jSZ"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="New Tmux Window" alternate="YES" keyEquivalent="N" identifier="tmux.New Tmux Window" id="1455">
+                                            <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
+                                            <connections>
+                                                <action selector="newTmuxWindow:" target="-1" id="1456"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="New Tmux Tab" alternate="YES" keyEquivalent="T" identifier="tmux.New Tmux Tab" id="1452">
+                                            <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
+                                            <connections>
+                                                <action selector="newTmuxTab:" target="-1" id="1453"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Dashboard" alternate="YES" identifier="tmux.Dashboard" id="1461">
+                                            <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                                            <modifierMask key="keyEquivalentModifierMask" shift="YES" control="YES" command="YES"/>
+                                            <connections>
+                                                <action selector="openDashboard:" target="-1" id="1463"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="zl8-Q7-4RO">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
+                            <menuItem title="Bury Session" keyEquivalent="B" identifier="Bury Session" id="m8k-FC-JBb">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                <connections>
+                                    <action selector="bury:" target="-1" id="jki-EJ-MEs"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Buried Sessions" id="Weo-nd-iLL">
+                                <menu key="submenu" title="Buried Sessions" autoenablesItems="NO" id="PTu-aD-qbz"/>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="CRC-2n-duo"/>
                             <menuItem title="Pin Hotkey Window" keyEquivalent="-" identifier="Pin Hotkey Window" id="Kd2-6A-mAn">
                                 <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
                                 <connections>
