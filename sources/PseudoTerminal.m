@@ -4826,6 +4826,10 @@ ITERM_WEAKLY_REFERENCEABLE
         }
         if ([self.window respondsToSelector:@selector(addTitlebarAccessoryViewController:)] &&
             (self.window.styleMask & NSWindowStyleMaskTitled)) {
+            // Explicitly load the view before adding. Otherwise, for some reason, on WINDOW_TYPE_MAXIMIZED windows,
+            // the NSWindow miscalculates the size, and ends up resizing the iTermRootTerminalView incorrectly.
+            [_shortcutAccessoryViewController view];
+
             [self.window addTitlebarAccessoryViewController:_shortcutAccessoryViewController];
             [self updateWindowNumberVisibility:nil];
         }
