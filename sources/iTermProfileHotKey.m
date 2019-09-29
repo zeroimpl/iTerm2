@@ -335,7 +335,7 @@ static NSString *const kArrangement = @"Arrangement";
 
         case WINDOW_TYPE_MAXIMIZED:
         case WINDOW_TYPE_COMPACT_MAXIMIZED:
-            return screen.visibleFrame.origin;
+            return screen.visibleFrameIgnoringHiddenDock.origin;
 
         case WINDOW_TYPE_TRADITIONAL_FULL_SCREEN:  // Framerate drops too much to roll this (2014 5k iMac)
             return screen.frame.origin;

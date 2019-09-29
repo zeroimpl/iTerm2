@@ -732,12 +732,10 @@ static BOOL iTermWindowTypeIsCompact(iTermWindowType windowType) {
         case WINDOW_TYPE_BOTTOM_PARTIAL:
         case WINDOW_TYPE_LEFT_PARTIAL:
         case WINDOW_TYPE_RIGHT_PARTIAL:
-            initialFrame = [screen visibleFrameIgnoringHiddenDock];
-            break;
-
         case WINDOW_TYPE_COMPACT_MAXIMIZED:
         case WINDOW_TYPE_MAXIMIZED:
-            initialFrame = [screen visibleFrame];
+            initialFrame = [screen visibleFrameIgnoringHiddenDock];
+            break;
 
         case WINDOW_TYPE_LION_FULL_SCREEN:
         case WINDOW_TYPE_TRADITIONAL_FULL_SCREEN:
@@ -3517,8 +3515,6 @@ ITERM_WEAKLY_REFERENCEABLE
 
         case WINDOW_TYPE_MAXIMIZED:
         case WINDOW_TYPE_COMPACT_MAXIMIZED:
-            [self window].movable = NO;
-            // fall thru
         case WINDOW_TYPE_TOP:
         case WINDOW_TYPE_LEFT:
         case WINDOW_TYPE_RIGHT:
@@ -3771,7 +3767,7 @@ ITERM_WEAKLY_REFERENCEABLE
         case WINDOW_TYPE_MAXIMIZED:
         case WINDOW_TYPE_COMPACT_MAXIMIZED:
             PtyLog(@"Window type = MAXIMIZED or COMPACT_MAXIMIZED");
-            return [screen visibleFrame];
+            return [screen visibleFrameIgnoringHiddenDock];
  
         case WINDOW_TYPE_NORMAL:
         case WINDOW_TYPE_NO_TITLE_BAR:
@@ -4046,9 +4042,9 @@ ITERM_WEAKLY_REFERENCEABLE
         DLog(@"Accepting proposal");
         return proposedFrameSize;
     }
-    if( self.windowType == WINDOW_TYPE_MAXIMIZED ) {
+    if (self.windowType == WINDOW_TYPE_MAXIMIZED || self.windowType == WINDOW_TYPE_COMPACT_MAXIMIZED) {
         DLog( @"Blocking resize" );
-        return self.window.screen.visibleFrame.size;
+        return self.window.screen.visibleFrameIgnoringHiddenDock.size;
     }
     NSSize originalProposal = proposedFrameSize;
     // Find the session for the current pane of the current tab.
@@ -4332,7 +4328,7 @@ ITERM_WEAKLY_REFERENCEABLE
 
 - (void)windowDidMove:(NSNotification *)notification {
     DLog(@"%@: Window %@ moved. Called from %@", self, self.window, [NSThread callStackSymbols]);
-    if( self.windowType == WINDOW_TYPE_MAXIMIZED || self.windowType == WINDOW_TYPE_COMPACT_MAXIMIZED ) {
+    if (self.windowType == WINDOW_TYPE_MAXIMIZED || self.windowType == WINDOW_TYPE_COMPACT_MAXIMIZED) {
         [self canonicalizeWindowFrame];
     }
     [self saveTmuxWindowOrigins];
@@ -4695,6 +4691,9 @@ ITERM_WEAKLY_REFERENCEABLE
         // it to appear with a title bar. TODO: Test if lion fullscreen windows restore on the right
         // monitor.
         [myWindow setFrame:initialFrame display:NO];
+    }
+    if (windowType == WINDOW_TYPE_MAXIMIZED || windowType == WINDOW_TYPE_COMPACT_MAXIMIZED) {
+        myWindow.movable = NO;
     }
     [self updateForTransparency:(NSWindow<PTYWindow> *)myWindow];
     [self setWindow:myWindow];
@@ -8608,9 +8607,11 @@ static CGFloat iTermDimmingAmount(PSMTabBarControl *tabView) {
                     case WINDOW_TYPE_LION_FULL_SCREEN:
                     case WINDOW_TYPE_TRADITIONAL_FULL_SCREEN:
                     case WINDOW_TYPE_NORMAL:
+                    case WINDOW_TYPE_MAXIMIZED:
                     case WINDOW_TYPE_ACCESSORY:
                         return NO;
                     case WINDOW_TYPE_COMPACT:
+                    case WINDOW_TYPE_COMPACT_MAXIMIZED:
                         return YES;
                 }
             case PSMTab_BottomTab:
