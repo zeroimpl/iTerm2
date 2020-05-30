@@ -105,7 +105,7 @@
     notification.title = title;
     notification.informativeText = description;
     notification.userInfo = context;
-    notification.soundName = NSUserNotificationDefaultSoundName;
+    notification.soundName = nil; //NSUserNotificationDefaultSoundName;
     DLog(@"Post notification %@", notification);
     [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
 
@@ -118,7 +118,7 @@
     notification.informativeText = detail;
     NSDictionary *context = @{ @"URL": url.absoluteString };
     notification.userInfo = context;
-    notification.soundName = NSUserNotificationDefaultSoundName;
+    notification.soundName = nil; //NSUserNotificationDefaultSoundName;
     DLog(@"Post notification %@", notification);
     [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
 }
@@ -133,7 +133,7 @@
     NSDictionary *context = @{ @"CallbackNotificationName": name,
                                @"CallbackUserInfo": userInfo ?: @{} };
     notification.userInfo = context;
-    notification.soundName = NSUserNotificationDefaultSoundName;
+    notification.soundName = nil; //NSUserNotificationDefaultSoundName;
     DLog(@"Post notification %@", notification);
     [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
 }

@@ -3510,13 +3510,14 @@ ITERM_WEAKLY_REFERENCEABLE
             if ([_textview keyIsARepeat] == NO &&
                 [self shouldPostUserNotification] &&
                 [iTermProfilePreferences boolForKey:KEY_SEND_BELL_ALERT inProfile:self.profile]) {
-                [[iTermNotificationController sharedInstance] notify:@"Bell"
-                                                 withDescription:[NSString stringWithFormat:@"Session %@ #%d just rang a bell!",
-                                                                  [self name],
-                                                                  [_delegate tabNumber]]
-                                                     windowIndex:[self screenWindowIndex]
-                                                        tabIndex:[self screenTabIndex]
-                                                       viewIndex:[self screenViewIndex]];
+                NSBeep();
+//                [[iTermNotificationController sharedInstance] notify:@"Bell"
+//                                                 withDescription:[NSString stringWithFormat:@"Session %@ #%d just rang a bell!",
+//                                                                  [self name],
+//                                                                  [_delegate tabNumber]]
+//                                                     windowIndex:[self screenWindowIndex]
+//                                                        tabIndex:[self screenTabIndex]
+//                                                       viewIndex:[self screenViewIndex]];
             }
         }
     }
